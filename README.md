@@ -41,10 +41,10 @@
 
 ## 点码调用示例
 ```python
-# 搜索电影资源（默认返回5个结果，返回值为dict）
-print(gain_link('流浪地球'))
+# 搜索电影资源,返回5个结果，返回值为dict
+print(gain_link(movie_name='猛龙过江',catch_number=5))
 # 美化输出
-print(beautiful_input(gain_link('流浪地球')))
+print(beautiful_input(r=gain_link(movie_name='猛龙过江',catch_number=10)))
 # 搜索5个热门电影，返回list
 print(get_hot(5))
 # 接入微信机器人

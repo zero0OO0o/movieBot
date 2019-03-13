@@ -25,7 +25,7 @@ def short(link):
     return short_link(link)
 
 
-def gain_link(movie_name):
+def gain_link(movie_name,catch_number):
     c = rq.get('https://www.fqsousou.com/s/' + movie_name + '.html').content.decode()
     tree_r = etree.HTML(c)
 
@@ -63,10 +63,10 @@ def gain_link(movie_name):
 
         return [movie_link, movie_type, movie_size]
 
-    if len(r) < 5:
+    if len(r) < catch_number:
         gain_num_limit = len(r)
     else:
-        gain_num_limit = 5
+        gain_num_limit = catch_number
 
     for i in range(len(r) - 1):
         try:
