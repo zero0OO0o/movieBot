@@ -3,12 +3,6 @@
 > 微信电影资源机器人
 
 
-
-## 还在 debug 中，请先不要上机！！
-
-
-
-
 ## 功能
 
 1. 实现电影资源抓取（抓取源：fqsousou）
@@ -52,3 +46,7 @@ main()
 # 缩短链接
 print(short('pornhub.com/i/aksdnxaisiasnx'))
 ```
+
+## Pay Attention
+
+微信接入功能还在debug，请谨慎上机
