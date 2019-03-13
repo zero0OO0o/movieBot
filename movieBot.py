@@ -1,3 +1,5 @@
+#encoding:utf-8
+
 import requests as rq
 import random
 from lxml import etree
@@ -15,9 +17,9 @@ def short_link(original_link):
         if g['status'] == 1:
             return g['list']
         else:
-            return "Ω‚Œˆ ß∞‹£°"
+            return "Ëß£ÊûêÂ§±Ë¥•ÔºÅ"
     except BaseException:
-        return "Ω‚Œˆ“Ï≥££°"
+        return "Ëß£ÊûêÂºÇÂ∏∏ÔºÅ"
 
 def short(link):
     return short_link(link)
@@ -48,6 +50,7 @@ def gain_link(movie_name):
         c = rq.get(naive_link).content
         xpath_link = '/html/body/div[3]/div/div/div/div[1]/div[1]/div[3]/p/a[2]'
         xpath_type = '/html/body/div[3]/div/div/div/div[1]/div[1]/div[2]/dl/dt[2]/label/text()'
+        xpath_size = '/html/body/div[3]/div/div/div/div[1]/div[1]/div[2]/dl/dt[3]/label/text()'
         c = etree.HTML(c)
 
         try:
@@ -56,8 +59,9 @@ def gain_link(movie_name):
             movie_link = c.xpath(xpath_link)[0].attrib.get('href')
 
         movie_type = c.xpath(xpath_type)
+        movie_size = c.xpath(xpath_size)
 
-        return [movie_link, movie_type]
+        return [movie_link, movie_type, movie_size]
 
     if len(r) < 5:
         gain_num_limit = len(r)
@@ -69,57 +73,91 @@ def gain_link(movie_name):
             resource = ana_naive_link('https://www.fqsousou.com/' + r[i]['naive_link'])
             r[i]['link'] = resource[0]
 
-            if resource[1] == '':
-                r[i]['type'] = 'Œ¥÷™'
+            if resource[1] == []:
+                r[i]['type'] = 'Êú™Áü•'
             else:
                 r[i]['type'] = resource[1][0]
 
+            if resource[2] == []:
+                r[i]['size'] = 'Êú™Áü•'
+            else:
+                r[i]['size'] = resource[2][0]
+
             count += 1
+            print('ok')
             if count == gain_num_limit:
                 break
         except BaseException:
+            print('fail')
             r.pop(i)
             continue
     return r[:gain_num_limit]
 
-itchat.auto_login(hotReload=True)
+def main():
+    itchat.auto_login(hotReload=True)
 
-# initialize
-rcv = 'filehelper'
-itchat.send('≥…π¶ø™∆ÙWyattµÁ”∞÷˙ ÷∑˛ŒÒ∂À£°',rcv)
+    # initialize
+    rcv = 'filehelper'
+    itchat.send('ÊàêÂäüÂºÄÂêØWyattÁîµÂΩ±Âä©ÊâãÊúçÂä°Á´ØÔºÅ',rcv)
 
-friend = itchat.get_friends()
-myName = friend[0]['UserName']
+    friend = itchat.get_friends()
+    myName = friend[0]['UserName']
 
-# ≥ı ºªØ◊¥Ã¨Œ™£∫¿Îœﬂ (1±Ì æ‘⁄œﬂ)
-mode = 0
-
-
-# ≈‰÷√◊∞ Œ∆˜
-@itchat.msg_register(itchat.content.TEXT)
-def main(msg):
-    global mode
-
-    # return para: FromUserName ToUserName Content
-
-    if msg['ToUserName'] == rcv:
-        if msg['Content'] == 'ø™∆Ù':
-            mode = 1
-
-    if mode:
-        if msg['FromUserName'] != myName and msg['Content'][:2] == 'À—À˜':
-            itchat.send('WyattµÁ”∞ª˙∆˜»À’˝‘⁄À—À˜£¨«Î…‘µ»°£°£°£', msg['FromUserName'])
-            try:
-                r = gain_link(msg['Content'][2:])
-
-                re = ''
-                for i in r:
-                    re = re + '◊ ‘¥√˚£∫' + i['name'] + '\n' + '◊ ‘¥¿‡–Õ£∫' + i['type'] + '\n' + '◊ ‘¥µÿ÷∑£∫' + i['link'] + \
-                         '\n============================\n'
-
-                itchat.send(re, msg['FromUserName'])
-            except BaseException:
-                itchat.send('∂‘≤ª∆£¨≤ªƒ‹’“µΩƒ˙œÎÀ—À˜µƒ◊ ‘¥', msg['FromUserName'])
+    # ÂàùÂßãÂåñÁä∂ÊÄÅ‰∏∫ÔºöÁ¶ªÁ∫ø (1Ë°®Á§∫Âú®Á∫ø)
+    mode = 0
 
 
-itchat.run()
+    # ÈÖçÁΩÆË£ÖÈ•∞Âô®
+    @itchat.msg_register(itchat.content.TEXT)
+    def main(msg):
+        global mode
+
+        # return para: FromUserName ToUserName Content
+
+        if msg['ToUserName'] == rcv:
+            if msg['Content'] == 'ÂºÄÂêØ':
+                mode = 1
+
+        if mode:
+            if msg['FromUserName'] != myName and msg['Content'][:2] == 'ÊêúÁ¥¢':
+                itchat.send('WyattÁîµÂΩ±Êú∫Âô®‰∫∫Ê≠£Âú®ÊêúÁ¥¢ÔºåËØ∑Á®çÁ≠â„ÄÇ„ÄÇ„ÄÇ', msg['FromUserName'])
+                try:
+                    r = gain_link(msg['Content'][2:])
+
+                    re = '============================\n'
+                    for i in r:
+                        re = re + 'ËµÑÊ∫êÂêçÔºö' + i['name'] + '\n' + 'ËµÑÊ∫êÁ±ªÂûãÔºö' + i['type'] + '\n' \
+                                  'ËµÑÊ∫êÂ§ßÂ∞èÔºö' + i['size'] + '\n‰∫ëÁõòÂú∞ÂùÄÔºö' + i[
+                                  'link'] + '\n============================\n'
+
+                    itchat.send(re, msg['FromUserName'])
+                except BaseException:
+                    itchat.send('ÂØπ‰∏çËµ∑Ôºå‰∏çËÉΩÊâæÂà∞ÊÇ®ÊÉ≥ÊêúÁ¥¢ÁöÑËµÑÊ∫ê', msg['FromUserName'])
+
+
+    itchat.run()
+
+def get_hot(movie_number):
+
+    hot_list = []
+
+    c = rq.get('https://www.fqsousou.com/').content.decode()
+    r = etree.HTML(c)
+
+    for i in range(1,movie_number + 1):
+        xpath =  '/html/body/div[2]/div/div[3]/div/div[2]/ul[2]/li['+ str(i) +']/a/text()'
+        try:
+            hot_list.append(r.xpath(xpath)[0])
+        except BaseException:
+            continue
+    return hot_list
+
+def beautiful_input(r):
+    re = '============================\n'
+    for i in r:
+        re = re + 'ËµÑÊ∫êÂêçÔºö' + i['name'] + '\n' + 'ËµÑÊ∫êÁ±ªÂûãÔºö' + i['type'] + '\n' \
+                  'ËµÑÊ∫êÂ§ßÂ∞èÔºö' + i['size'] + '\n‰∫ëÁõòÂú∞ÂùÄÔºö' + i[
+                  'link'] + '\n============================\n'
+    return re
+
+

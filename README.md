@@ -6,11 +6,6 @@
 
 ## 还在 debug 中，请先不要上机！！
 
-## 还在 debug 中，请先不要上机！！
-
-## 还在 debug 中，请先不要上机！！
-
-## 还在 debug 中，请先不要上机！！
 
 
 
@@ -43,3 +38,17 @@
 ​		网址：t.cn/asdxd
 
 ​		++++++++++++++++++
+
+## 点码调用示例
+```python
+# 搜索电影资源（默认返回5个结果，返回值为dict）
+print(gain_link('流浪地球'))
+# 美化输出
+print(beautiful_input(gain_link('流浪地球')))
+# 搜索5个热门电影，返回list
+print(get_hot(5))
+# 接入微信机器人
+main()
+# 缩短链接
+print(short('pornhub.com/i/aksdnxaisiasnx'))
+```
