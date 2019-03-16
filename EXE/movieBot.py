@@ -19,15 +19,15 @@ Enjoy It !
 
 #########   初始化开始     #########
 mode_init = 0 #微信机器人初始状态，1表示开启，0则相反
-bot_name = 'Wyatt电影机器人beta'
-adv = '想知道为什么我资源搜的那么准、那么快，欢迎访问: github.com/wyatthuang1/moviebot' #若不想加广告，赋 adv=''
-get_movie_number = 5  #获取资源数量
-validate_resource_max = 10 #验证资源链接的最大数量，若不想使用此功能，赋值为0
-get_hot_number =10 #获取热门电影的个数，如果为0，则不获取
-use_secrete_ip = 1 #是否用隐藏ip
+adv = 'Power by Wyatt Huang\nprogram in: github.com/wyatthuang1/moviebot' #若不想加广告，赋 adv=''
 error_dic = ['百度网盘-链接不存在','关注公众号获取资源','获取资源加'] #百度网盘关键词黑名单
-#########   初始化结束     #########
 
+bot_name = str(input('机器人名字：'))
+get_movie_number = int(input('获取资源的数量：'))
+validate_resource_max = int(input('验证电影的最大数量，0为不验证：')) #验证资源链接的最大数量，若不想使用此功能，赋值为0
+get_hot_number =int(input('获取热门电影的数量，0为不获取：')) #获取热门电影的个数，如果为0，则不获取
+use_secrete_ip = int(input('是否隐秘ip，1为是，0为不是：')) #是否用隐藏ip
+#########   初始化结束     #########
 
 import requests as rq
 import random
@@ -211,7 +211,7 @@ def gain_link(movie_name):
 def start_wechat_bot():
 
     global bot_name
-    itchat.auto_login(hotReload=True)
+    itchat.auto_login()
 
     # initialize
     rcv = 'filehelper'
@@ -359,3 +359,4 @@ def state_config():
     else:
         print('广告: ' + adv)
 
+start_wechat_bot()

@@ -90,7 +90,7 @@ error_dic = ['百度网盘-链接不存在','关注公众号获取资源','获�
 
 > WARNING: 调用之前请先配置好`初始化`区域因为大多数方程的参数赋值方法用是`global`
 
-**get an ip** : 获取一个随机的可用的ip地址
+**get_an_ip**() : 获取一个随机的可用的ip地址
 
 **short()** : 缩短网址，e.g. short(‘baidu.com/asasdajncd11212’)
 
@@ -107,6 +107,12 @@ error_dic = ['百度网盘-链接不存在','关注公众号获取资源','获�
 **beautiful_input_for_hot_movie(get_hot())** : 美化`get_hot`的输出
 
 **state_config()** : 打印初始化的配置
+
+## 更新
+
+**V1.1**：修复一些致命bug，简化代码，exe版诞生
+
+**V1**：大体完成，能跑，似乎没bug
 
 ## 赞赏
 
