@@ -1,52 +1,122 @@
-# Movie Bot
+# MovieBot 微信电影助手
 
-> 微信电影资源机器人
+![](logo.png)
 
+*----- 简单的的微信电影姬接入程序 Simple WeChat MovieBot Solution*
+
+## 基于
+
+1. [番茄搜搜](https://fqsousou.com): 可能是中国资源最多、更新最快的pan资源站
+2. ItChat: 基于python的非官方微信api库
+3. [不知名的IP库站](https://www.xicidaili.com/nn/): 用来防止ip被ban
+4. [ft12缩短网址服务](https://ft12.com): 用的是它们的非官方api，如果谁有找到更好的缩短网址服务，请给我说声
+5. [58921影视站](http://58921.com): 提供电影排名数据
 
 ## 功能
 
-1. 实现电影资源抓取（抓取源：fqsousou）
-2. 自动缩短资源链接
-3. 实现微信对接
+1. 获取最新电影资源的百度云链接
+2. 通过title黑名单来确保百度云的资源的可用性
+3. 缩短网址
+4. 实时更换ip，防止被ban
+5. 获取最热门影视
+6. 微信傻瓜对接
+7. 轻松配置广告
 
-## 示意图
+## 用法
 
-**朋友：** 搜索驯龙高手3
+懒得解释了，放个DEMO吧！
+
+### 控制端
+
+![](demo/4.jpg)
 
 
 
-**机器人：** 正在搜索，请稍后。。。
+### 朋友端
 
-​		搜索到以下资源：
+![](demo/2.jpg)
 
-​		++++++++++++++++++
+![](demo/1.jpg)
 
-​		海王【1080p】
+## 使用
 
-​		网址：t.cn/asjasdjik
+### 1. 配置`moviebot`
 
-​		++++++++++++++++++
+打开`moviebot.py`，并根据你的需求修改`初始化`栏目
 
-​		海王TV版
-
-​		网址：t.cn/asdxd
-
-​		++++++++++++++++++
-
-## 点码调用示例
 ```python
-# 搜索电影资源,返回5个结果，返回值为dict
-print(gain_link(movie_name='猛龙过江',catch_number=5))
-# 美化输出
-print(beautiful_input(r=gain_link(movie_name='猛龙过江',catch_number=10)))
-# 搜索5个热门电影，返回list
-print(get_hot(5))
-# 接入微信机器人
-main()
-# 缩短链接
-print(short('pornhub.com/i/aksdnxaisiasnx'))
+#########   初始化开始     #########
+mode_init = 0 #微信机器人初始状态，1表示开启，0则相反
+bot_name = 'Wyatt电影机器人beta' #机器人名字
+adv = '一成首付弹个车' #若不想加广告，赋 adv=''
+get_movie_number = 5  #获取资源数量
+validate_resource_max = 10 #验证资源链接的最大数量，若不想使用此功能，赋值为0
+get_hot_number =10 #获取热门电影的个数，如果为0，则不获取
+use_secrete_ip = 1 #是否用隐藏ip
+error_dic = ['百度网盘-链接不存在','关注公众号获取资源','获取资源加'] #百度网盘关键词黑名单
+#########   初始化结束     #########
 ```
 
-## Pay Attention
+### 2. 运行`run.py`
 
-微信接入功能还在debug，请谨慎上机
+运行后应该会出现一个二维码，打开你的微信扫一下并同意就可以了。如果接入成功的话你的`文件传输助手`应该会给你发如下的消息：
+
+```txt
+成功接入Wyatt电影机器人beta服务端！
+发送开启以开启服务
+```
+
+### 3. 激活moviebot
+
+收到消息后，只能表示你接入微信成功了，如果你想启用`moviebot`的话，微信给`文件传输助手`发送`开启`即可！
+
+同时，当你不确定到底开没开启服务时，你可以发送消息`状态`查询
+
+![](demo/5.png)
+
+### 4. 最后
+
+一旦你的朋友给你发送如下的消息的话：
+
+```txt
+搜索驯龙高手3 电影
+```
+
+他就可以收到关于`驯龙高手3 电影`电影资源的回复啦！
+
+## 开发者指南
+
+### 1. 调用
+
+> WARNING: 调用之前请先配置好`初始化`区域因为大多数方程的参数赋值方法用是`global`
+
+**get an ip** : 获取一个随机的可用的ip地址
+
+**short()** : 缩短网址，e.g. short(‘baidu.com/asasdajncd11212’)
+
+**validate_resource()** : 验证百度云资源是否有效，编辑`error_dic`以修改策略
+
+**gain_link()** ： 搜索电影资源，e.g. gain_link(‘驯龙高手’)
+
+**start_wechat_bot()** : 开启wechat服务端
+
+**get_hot()** : 获取热门电影
+
+**beautiful_input(gain_link())** : 美化`gain_link`的输出
+
+**beautiful_input_for_hot_movie(get_hot())** : 美化`get_hot`的输出
+
+**state_config()** : 打印初始化的配置
+
+## 赞赏
+
+如果觉得项目对你有用的话不妨请我喝杯冰阔落吧 (‾◡◝)
+
+![](pay.jpg)
+
+
+
+
+
+
+
