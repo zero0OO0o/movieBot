@@ -3,7 +3,7 @@
 
 '''
 
-TODO : Add a function to test the if BaiDu Cloud resource is legible
+TODO : 增强匿名IP库
 
 THE WECHAT FUNCTION IN UNDER CONSTRUCTION, USE IT CAREFULLY !
 

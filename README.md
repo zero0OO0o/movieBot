@@ -9,8 +9,9 @@
 1. [番茄搜搜](https://fqsousou.com): 可能是中国资源最多、更新最快的pan资源站
 2. ItChat: 基于python的非官方微信api库
 3. [不知名的IP库站](https://www.xicidaili.com/nn/): 用来防止ip被ban
-4. [ft12缩短网址服务](https://ft12.com): 用的是它们的非官方api，如果谁有找到更好的缩短网址服务，请给我说声
+4. [百度缩短网址服务](https://dwz.cn):
 5. [58921影视站](http://58921.com): 提供电影排名数据
+6. [疯子搜索](http://ifkdy.com): 提供在线看地址
 
 ## 功能
 
@@ -19,6 +20,7 @@
 3. 缩短网址
 4. 实时更换ip，防止被ban
 5. 获取最热门影视
+6. 获取在线看地址
 6. 微信傻瓜对接
 7. 轻松配置广告
 
@@ -46,14 +48,16 @@
 
 ```python
 #########   初始化开始     #########
-mode_init = 0 #微信机器人初始状态，1表示开启，0则相反
-bot_name = 'Wyatt电影机器人beta' #机器人名字
-adv = '一成首付弹个车' #若不想加广告，赋 adv=''
+mode_init = 1 #微信机器人初始状态，1表示开启，0则相反
+bot_name = 'Wyatt电影机器人beta'
+adv = 'Power By Wyatt\nAccuracy search based on Baidu Validate' #若不想加广告，赋 adv=''
 get_movie_number = 5  #获取资源数量
 validate_resource_max = 10 #验证资源链接的最大数量，若不想使用此功能，赋值为0
-get_hot_number =10 #获取热门电影的个数，如果为0，则不获取
-use_secrete_ip = 1 #是否用隐藏ip
+get_hot_number =5 #获取热门电影的个数，如果为0，则不获取
+use_secrete_ip = 0 #是否用隐藏ip
 error_dic = ['百度网盘-链接不存在','关注公众号获取资源','获取资源加'] #百度网盘关键词黑名单
+send_online_watch_address = 5 # 发送在线观看链接的个数，0为不发送
+baidu_short_link_token = '*********************' # https://dwz.cn/console/userinfo 申请百度短网址的token
 #########   初始化结束     #########
 ```
 
@@ -84,6 +88,13 @@ error_dic = ['百度网盘-链接不存在','关注公众号获取资源','获�
 
 他就可以收到关于`驯龙高手3 电影`电影资源的回复啦！
 
+### 5. filehelper可调用的函数
+
+**测试** : 检测函数是否可以运行
+**开启** : 开启服务端
+**关闭** : 关闭服务端
+**状态** : 检测服务状态
+
 ## 开发者指南
 
 ### 1. 调用
@@ -108,7 +119,13 @@ error_dic = ['百度网盘-链接不存在','关注公众号获取资源','获�
 
 **state_config()** : 打印初始化的配置
 
+**get_online_resource()** : 获取在线看地址
+
+**help()** : 获取可用函数帮助
+
 ## 更新
+
+**V2**： 增加在线看功能，改变短网址API
 
 **V1.1**：修复一些致命bug，简化代码，exe版诞生
 
@@ -119,10 +136,4 @@ error_dic = ['百度网盘-链接不存在','关注公众号获取资源','获�
 如果觉得项目对你有用的话不妨请我喝杯冰阔落吧 (‾◡◝)
 
 ![](pay.jpg)
-
-
-
-
-
-
 
