@@ -20,4 +20,5 @@ import movieBot as mb
 
 
 #########   功能区     #########
+mb.state_config()
 mb.start_wechat_bot()

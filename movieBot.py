@@ -1,32 +1,27 @@
 ï»¿#encoding:utf-8
 
 '''
-TODO : ÖÇÄÜËÑË÷
-
+TODO : æ™ºèƒ½æœç´¢
 THE WECHAT FUNCTION IN UNDER CONSTRUCTION, USE IT CAREFULLY !
-
 power by Wyatt
 2019/3/15
-
 The WeChat Movie Bot, automatically send the movie resource BaiDu Cloud resource link,
 the search engine is based on fqsousou.com, and the wechat engine is itchat
-
 Enjoy It !
-
 '''
 
-#########   ³õÊ¼»¯¿ªÊ¼     #########
-mode_init = 1 #Î¢ĞÅ»úÆ÷ÈË³õÊ¼×´Ì¬£¬1±íÊ¾¿ªÆô£¬0ÔòÏà·´
-bot_name = 'WyattµçÓ°»úÆ÷ÈËbeta'
-adv = 'Power By Wyatt\nAccuracy search based on Baidu Validate' #Èô²»Ïë¼Ó¹ã¸æ£¬¸³ adv=''
-get_movie_number = 5  #»ñÈ¡×ÊÔ´ÊıÁ¿
-validate_resource_max = 10 #ÑéÖ¤×ÊÔ´Á´½ÓµÄ×î´óÊıÁ¿£¬Èô²»ÏëÊ¹ÓÃ´Ë¹¦ÄÜ£¬¸³ÖµÎª0
-get_hot_number =5 #»ñÈ¡ÈÈÃÅµçÓ°µÄ¸öÊı£¬Èç¹ûÎª0£¬Ôò²»»ñÈ¡
-use_secrete_ip = 0 #ÊÇ·ñÓÃÒş²Øip
-error_dic = ['°Ù¶ÈÍøÅÌ-Á´½Ó²»´æÔÚ','¹Ø×¢¹«ÖÚºÅ»ñÈ¡×ÊÔ´','»ñÈ¡×ÊÔ´¼Ó'] #°Ù¶ÈÍøÅÌ¹Ø¼ü´ÊºÚÃûµ¥
-send_online_watch_address = 5 # ·¢ËÍÔÚÏß¹Û¿´Á´½ÓµÄ¸öÊı£¬0Îª²»·¢ËÍ
-baidu_short_link_token = '' # https://dwz.cn/console/userinfo ÉêÇë°Ù¶È¶ÌÍøÖ·µÄtoken
-#########   ³õÊ¼»¯½áÊø     #########
+#########   åˆå§‹åŒ–å¼€å§‹     #########
+mode_init = 1 #å¾®ä¿¡æœºå™¨äººåˆå§‹çŠ¶æ€ï¼Œ1è¡¨ç¤ºå¼€å¯ï¼Œ0åˆ™ç›¸å
+bot_name = 'Wyattç”µå½±æœºå™¨äººbeta'
+adv = 'Power By Wyatt\nAccuracy search based on Baidu Validate' #è‹¥ä¸æƒ³åŠ å¹¿å‘Šï¼Œèµ‹ adv=''
+get_movie_number = 5  #è·å–èµ„æºæ•°é‡
+validate_resource_max = 10 #éªŒè¯èµ„æºé“¾æ¥çš„æœ€å¤§æ•°é‡ï¼Œè‹¥ä¸æƒ³ä½¿ç”¨æ­¤åŠŸèƒ½ï¼Œèµ‹å€¼ä¸º0
+get_hot_number =5 #è·å–çƒ­é—¨ç”µå½±çš„ä¸ªæ•°ï¼Œå¦‚æœä¸º0ï¼Œåˆ™ä¸è·å–
+use_secrete_ip = 0 #æ˜¯å¦ç”¨éšè—ip
+error_dic = ['ç™¾åº¦ç½‘ç›˜-é“¾æ¥ä¸å­˜åœ¨','å…³æ³¨å…¬ä¼—å·è·å–èµ„æº','è·å–èµ„æºåŠ '] #ç™¾åº¦ç½‘ç›˜å…³é”®è¯é»‘åå•
+send_online_watch_address = 5 # å‘é€åœ¨çº¿è§‚çœ‹é“¾æ¥çš„ä¸ªæ•°ï¼Œ0ä¸ºä¸å‘é€
+baidu_short_link_token = '9860706e562a94413cc57f7076da665f' # https://dwz.cn/console/userinfo ç”³è¯·ç™¾åº¦çŸ­ç½‘å€çš„token
+#########   åˆå§‹åŒ–ç»“æŸ     #########
 
 
 import requests as rq
@@ -56,7 +51,7 @@ if use_secrete_ip:
             port = r.xpath('//*[@id="ip_list"]/tr[' + str(i) + ']/td[3]/text()')[0]
             ipLib.append([ip,type,port])
     except Exception as e:
-        print('ÄäÃûip»ñÈ¡Ê§°Ü£¡£º' + str(e))
+        print('åŒ¿åipè·å–å¤±è´¥ï¼ï¼š' + str(e))
         os._exit(0)
 
 else:
@@ -81,10 +76,10 @@ def short(original_link):
     token = '9860706e562a94413cc57f7076da665f'
     bodys = {'url': original_link}
 
-    # ÅäÖÃheaders
+    # é…ç½®headers
     headers = {'Content-Type': content_type, 'Token': token}
 
-    # ·¢ÆğÇëÇó
+    # å‘èµ·è¯·æ±‚
 
     response = rq.post(url=url, data=json.dumps(bodys), headers=headers, proxies=get_an_ip())
 
@@ -153,11 +148,11 @@ def gain_link(movie_name):
             r.append(rr)
             init += 1
 
-        # ÕâÀï²»ÓÃ´òÓ¡error
+        # è¿™é‡Œä¸ç”¨æ‰“å°error
         except Exception:
             break
 
-    # ·ÖÎö¶ş¼¶ÓòÃû
+    # åˆ†æäºŒçº§åŸŸå
     def ana_naive_link(naive_link):
 
         c = rq.get(naive_link,headers=header, proxies=get_an_ip()).content
@@ -173,26 +168,26 @@ def gain_link(movie_name):
 
         movie_type = c.xpath(xpath_type)[0]
 
-        if not movie_type == 'ÎÄ¼ş¼Ğ':
+        if not movie_type == 'æ–‡ä»¶å¤¹':
             movie_size = c.xpath(xpath_size)[0]
         else:
             movie_size = ''
 
         return [movie_link, movie_type, movie_size]
 
-    # ·ÖÎö movie number limit
+    # åˆ†æ movie number limit
     if len(r) < get_movie_number:
         gain_num_limit = len(r)
     else:
         gain_num_limit = get_movie_number
 
-    # ±éÀúnaiveÊı×é½øÒ»²½·ÖÎö×ÊÔ´µØÖ·
+    # éå†naiveæ•°ç»„è¿›ä¸€æ­¥åˆ†æèµ„æºåœ°å€
     for i in range(len(r)):
         try:
 
             resource = ana_naive_link('https://www.fqsousou.com/' + r[i]['naive_link'])
 
-            # ÓĞtest_validate
+            # æœ‰test_validate
             if validate_resource_max:
                 if not validate_resource(resource[0]):
                     print('ok -- but validate error')
@@ -201,17 +196,17 @@ def gain_link(movie_name):
                         break
                     continue
 
-            # Èç¹ûÃ»ÓĞtest_validate »ò validate Õı³£
-            # ×¢ÒâpopºóĞèÒªÅ²Î»
+            # å¦‚æœæ²¡æœ‰test_validate æˆ– validate æ­£å¸¸
+            # æ³¨æ„popåéœ€è¦æŒªä½
             r[i]['link'] = resource[0]
 
             if resource[1] == '':
-                r[i]['type'] = 'Î´Öª'
+                r[i]['type'] = 'æœªçŸ¥'
             else:
                 r[i]['type'] = resource[1]
 
             if resource[2] == '':
-                r[i]['size'] = 'Î´Öª'
+                r[i]['size'] = 'æœªçŸ¥'
             else:
                 r[i]['size'] = resource[2]
 
@@ -227,37 +222,37 @@ def gain_link(movie_name):
             incorrect.append(i)
             continue
 
-    # µ¹ĞòÅÅÁĞ£¬ÒÔÃâ³öÏÖpop´í index µÄÇé¿ö
+    # å€’åºæ’åˆ—ï¼Œä»¥å…å‡ºç°popé”™ index çš„æƒ…å†µ
     for i in sorted(incorrect,reverse=True):
         r.pop(i)
 
-    # ×îºÃ²ÎÊı²»Òª´ø gain_num_limit£¬ÒÔÓ¦¶ÔÈ« fail µÄÇé¿ö³öÏÖ
+    # æœ€å¥½å‚æ•°ä¸è¦å¸¦ gain_num_limitï¼Œä»¥åº”å¯¹å…¨ fail çš„æƒ…å†µå‡ºç°
     return r[:count]
 
-# Î¢ĞÅ»úÆ÷ÈË¹¦ÄÜ
+# å¾®ä¿¡æœºå™¨äººåŠŸèƒ½
 def start_wechat_bot():
 
     global bot_name
 
-    #Èç¹ûÊÇÔÚ·şÎñÆ÷ÔËĞĞ£¬auto_login ¼ÓÉÏ²ÎÊı enableCmdQR=2
+    #å¦‚æœæ˜¯åœ¨æœåŠ¡å™¨è¿è¡Œï¼Œauto_login åŠ ä¸Šå‚æ•° enableCmdQR=2
 
     itchat.auto_login(hotReload=True)
 
     # initialize
     rcv = 'filehelper'
-    itchat.send('³É¹¦½ÓÈë'+ bot_name +'·şÎñ¶Ë£¡\n·¢ËÍ¿ªÆôÒÔ¿ªÆô·şÎñ',rcv)
+    itchat.send('æˆåŠŸæ¥å…¥'+ bot_name +'æœåŠ¡ç«¯ï¼\nå‘é€å¼€å¯ä»¥å¼€å¯æœåŠ¡',rcv)
 
     friend = itchat.get_friends()
     myName = friend[0]['UserName']
 
     def send_error_report(desc,error):
-        itchat.send(desc+ '\n´íÎóÀàĞÍ£º'+ str(error),rcv)
+        itchat.send(desc+ '\né”™è¯¯ç±»å‹ï¼š'+ str(error),rcv)
 
-    # ÅäÖÃ×°ÊÎÆ÷
+    # é…ç½®è£…é¥°å™¨
     @itchat.msg_register(itchat.content.TEXT)
     def main(msg):
 
-        # µ¼Èë³õÊ¼»¯Öµ
+        # å¯¼å…¥åˆå§‹åŒ–å€¼
         global mode_init,\
             get_hot_number,\
             adv,\
@@ -267,40 +262,40 @@ def start_wechat_bot():
 
         if msg['ToUserName'] == rcv:
 
-            # ÅäÖÃ¹¦ÄÜ
-            if msg['Content'] == '¿ªÆô':
+            # é…ç½®åŠŸèƒ½
+            if msg['Content'] == 'å¼€å¯':
                 mode_init = 1
-                itchat.send('ÒÑ¿ªÆô»úÆ÷ÈË',rcv)
-            if msg['Content'] == '×´Ì¬':
+                itchat.send('å·²å¼€å¯æœºå™¨äºº',rcv)
+            if msg['Content'] == 'çŠ¶æ€':
                 if mode_init:
-                    itchat.send('ÒÑ¿ªÆô»úÆ÷ÈË\n·¢ËÍ¹Ø±ÕÒÔ¹Ø±Õ»úÆ÷ÈË',rcv)
+                    itchat.send('å·²å¼€å¯æœºå™¨äºº\nå‘é€å…³é—­ä»¥å…³é—­æœºå™¨äºº',rcv)
                 else:
-                    itchat.send('Î´¿ªÆô»úÆ÷ÈË',rcv)
-            if msg['Content'] == '¹Ø±Õ':
+                    itchat.send('æœªå¼€å¯æœºå™¨äºº',rcv)
+            if msg['Content'] == 'å…³é—­':
                 mode_init = 0
-                itchat.send('ÒÑ¹Ø±Õ»úÆ÷ÈË\n·¢ËÍ¿ªÆôÒÔÆô¶¯»úÆ÷ÈË', rcv)
-            if msg['Content'] == '²âÊÔ':
+                itchat.send('å·²å…³é—­æœºå™¨äºº\nå‘é€å¼€å¯ä»¥å¯åŠ¨æœºå™¨äºº', rcv)
+            if msg['Content'] == 'æµ‹è¯•':
 
                 try:
-                    beautiful_input(gain_link('ÎÒ'))
-                    itchat.send('ËÑË÷Ä£¿éÕı³££¡',rcv)
+                    beautiful_input(gain_link('æˆ‘'))
+                    itchat.send('æœç´¢æ¨¡å—æ­£å¸¸ï¼',rcv)
                 except Exception as e:
-                    send_error_report('ËÑË÷Ä£¿é´íÎó£¡',e)
+                    send_error_report('æœç´¢æ¨¡å—é”™è¯¯ï¼',e)
                 try:
                     beautiful_input_for_hot_movie(get_hot())
-                    itchat.send('ÈÈÃÅÄ£¿éÕı³££¡',rcv)
+                    itchat.send('çƒ­é—¨æ¨¡å—æ­£å¸¸ï¼',rcv)
                 except Exception as e:
-                    send_error_report('ÈÈÃÅÄ£¿é´íÎó£¡',e)
+                    send_error_report('çƒ­é—¨æ¨¡å—é”™è¯¯ï¼',e)
 
-        # ¶ÔÍâ¹¦ÄÜ
+        # å¯¹å¤–åŠŸèƒ½
         if mode_init:
-            if msg['Content'][:2] == 'ËÑË÷':
+            if msg['Content'][:2] == 'æœç´¢':
 
-                # ·ÀÖ¹×Ô¼º²»ÄÜËÑË÷
+                # é˜²æ­¢è‡ªå·±ä¸èƒ½æœç´¢
                 if msg['FromUserName'] == myName:
                     msg['FromUserName'] = rcv
 
-                itchat.send(bot_name + 'ÕıÔÚËÑË÷£¬ÇëÉÔµÈ¡£¡£¡£', msg['FromUserName'])
+                itchat.send(bot_name + 'æ­£åœ¨æœç´¢ï¼Œè¯·ç¨ç­‰ã€‚ã€‚ã€‚', msg['FromUserName'])
                 try:
                     r = gain_link(msg['Content'][2:])
                     if not r == []:
@@ -308,48 +303,48 @@ def start_wechat_bot():
                         itchat.send(re, msg['FromUserName'])
                     else:
 
-                        # Èç¹ûÃ»ÓĞ¼ìË÷
-                        itchat.send('ÒÑ¼ìË÷µ½10¸öÏà¹Ø×ÊÔ´£¬µ«ÊÇ Baidu Validate ÏµÍ³ÅÅ³ıÓĞ 10 ¸öÀ¬»ø×ÊÔ´')
+                        # å¦‚æœæ²¡æœ‰æ£€ç´¢
+                        itchat.send('å·²æ£€ç´¢åˆ°10ä¸ªç›¸å…³èµ„æºï¼Œä½†æ˜¯ Baidu Validate ç³»ç»Ÿæ’é™¤æœ‰ 10 ä¸ªåƒåœ¾èµ„æº')
 
-                # Èç¹û¼ìË÷´íÎó
+                # å¦‚æœæ£€ç´¢é”™è¯¯
                 except Exception as e:
-                    itchat.send('¶Ô²»Æğ£¬²»ÄÜÕÒµ½ÄúÏëËÑË÷µÄ×ÊÔ´', msg['FromUserName'])
-                    send_error_report('ËÑË÷Ä£¿é´íÎó£¬Î´ÄÜ³É¹¦Íê³É¼ìË÷',e)
+                    itchat.send('å¯¹ä¸èµ·ï¼Œä¸èƒ½æ‰¾åˆ°æ‚¨æƒ³æœç´¢çš„èµ„æº', msg['FromUserName'])
+                    send_error_report('æœç´¢æ¨¡å—é”™è¯¯ï¼Œæœªèƒ½æˆåŠŸå®Œæˆæ£€ç´¢',e)
 
-                # »ñÈ¡ÔÚÏß¿´µØÖ·
+                # è·å–åœ¨çº¿çœ‹åœ°å€
                 try:
                     if send_online_watch_address:
                         r = get_online_resource(msg['Content'][2:])
                         if not r == []:
 
-                            re = 'ÔÚÏß¿´µØÖ·£º\n'
+                            re = 'åœ¨çº¿çœ‹åœ°å€ï¼š\n'
                             for i in r:
                                 re = re + short(i) + '\n=====================\n'
 
                             itchat.send(re, msg['FromUserName'])
 
-                # Èç¹û´íÎó
+                # å¦‚æœé”™è¯¯
                 except Exception as e:
-                    send_error_report('ÔÚÏß¿´Ä£¿é´íÎó£¬Î´ÄÜ³É¹¦Íê³É¼ìË÷', e)
+                    send_error_report('åœ¨çº¿çœ‹æ¨¡å—é”™è¯¯ï¼Œæœªèƒ½æˆåŠŸå®Œæˆæ£€ç´¢', e)
 
-                # ÈÈÃÅ»ñÈ¡Ä£¿é
+                # çƒ­é—¨è·å–æ¨¡å—
                 try:
                     if get_hot_number:
                         itchat.send(beautiful_input_for_hot_movie(r=get_hot()),msg['FromUserName'])
                 except Exception as e:
-                    send_error_report('ÈÈÃÅÄ£¿é´íÎó£¬Î´ÄÜ³É¹¦Íê³É¼ìË÷',e)
+                    send_error_report('çƒ­é—¨æ¨¡å—é”™è¯¯ï¼Œæœªèƒ½æˆåŠŸå®Œæˆæ£€ç´¢',e)
 
-                # Èç¹û adv ²»Îª¿Õ
+                # å¦‚æœ adv ä¸ä¸ºç©º
                 if not adv == '':
                     try:
                         itchat.send(str(adv),msg['FromUserName'])
                     except Exception as e:
-                        send_error_report('¹ã¸æÄ£¿é´íÎó',e)
+                        send_error_report('å¹¿å‘Šæ¨¡å—é”™è¯¯',e)
 
-    # ¿ªÊ¼ÔËĞĞ
+    # å¼€å§‹è¿è¡Œ
     itchat.run()
 
-# ÈÈÃÅ¹¦ÄÜ
+# çƒ­é—¨åŠŸèƒ½
 def get_hot():
     hot_list = []
 
@@ -357,7 +352,7 @@ def get_hot():
         header,\
         get_hot_number
 
-    # ²»Òª¼Ó proxies£¬²»È»»áºÜÂı
+    # ä¸è¦åŠ  proxiesï¼Œä¸ç„¶ä¼šå¾ˆæ…¢
     c = rq.get('http://58921.com/boxoffice/live',headers=header,proxies=get_an_ip()).content.decode()
     r = etree.HTML(c)
 
@@ -371,10 +366,10 @@ def get_hot():
     return hot_list
 
 def beautiful_input(r):
-    re = '°Ù¶ÈÔÆÁ´½Ó£º\n=====================\n'
+    re = 'ç™¾åº¦äº‘é“¾æ¥ï¼š\n=====================\n'
     for i in r:
-        re = re + '×ÊÔ´Ãû£º' + i['name'] + '\n' + '×ÊÔ´ÀàĞÍ£º' + i['type'] + '\n' \
-                  '×ÊÔ´´óĞ¡£º' + i['size'] + '\nÔÆÅÌµØÖ·£º' + i[
+        re = re + 'èµ„æºåï¼š' + i['name'] + '\n' + 'èµ„æºç±»å‹ï¼š' + i['type'] + '\n' \
+                  'èµ„æºå¤§å°ï¼š' + i['size'] + '\näº‘ç›˜åœ°å€ï¼š' + i[
                   'link'] + '\n=====================\n'
     return re
 
@@ -384,7 +379,7 @@ def beautiful_input_for_hot_movie(r):
     for i in r:
         re = re + str(count) + '. ' + i + '\n'
         count += 1
-    return 'ÎªÄúÍÆ¼öÄ¿Ç°×îÈÈµÄµçÓ°£º\n' + re
+    return 'ä¸ºæ‚¨æ¨èç›®å‰æœ€çƒ­çš„ç”µå½±ï¼š\n' + re
 
 def state_config():
     '''
@@ -396,42 +391,41 @@ def state_config():
     '''
     state = ''
     if mode_init == 0:
-        print('Î¢ĞÅ»úÆ÷ÈË³õÊ¼»¯×´Ì¬Îª£º¹Ø±Õ')
+        print('å¾®ä¿¡æœºå™¨äººåˆå§‹åŒ–çŠ¶æ€ä¸ºï¼šå…³é—­')
     else:
-        print('Î¢ĞÅ»úÆ÷ÈË³õÊ¼»¯×´Ì¬Îª£º¿ªÆô')
-    print('»ñÈ¡µçÓ°×ÊÔ´µÄÊıÄ¿Îª£º' + str(get_movie_number))
+        print('å¾®ä¿¡æœºå™¨äººåˆå§‹åŒ–çŠ¶æ€ä¸ºï¼šå¼€å¯')
+    print('è·å–ç”µå½±èµ„æºçš„æ•°ç›®ä¸ºï¼š' + str(get_movie_number))
     if validate_resource_max:
-        print('×î´ó°Ù¶ÈÔÆ×ÊÔ´ÑéÖ¤ÊıÄ¿Îª£º'+ str(validate_resource_max))
+        print('æœ€å¤§ç™¾åº¦äº‘èµ„æºéªŒè¯æ•°ç›®ä¸ºï¼š'+ str(validate_resource_max))
     if validate_resource_max == 0:
-        print('Î´ÆôÓÃ×ÊÔ´ÑéÖ¤ÏµÍ³')
+        print('æœªå¯ç”¨èµ„æºéªŒè¯ç³»ç»Ÿ')
     if get_hot_number:
-        print('»ñÈ¡×îÈÈµçÓ°ÊıÄ¿£º' + str(get_hot_number))
+        print('è·å–æœ€çƒ­ç”µå½±æ•°ç›®ï¼š' + str(get_hot_number))
     if not get_hot_number:
-        print('Î´ÆôÓÃ×îÈÈµçÓ°ÏµÍ³')
+        print('æœªå¯ç”¨æœ€çƒ­ç”µå½±ç³»ç»Ÿ')
     if use_secrete_ip:
-        print('Ê¹ÓÃipÎª£ºÒşÃØip' )
+        print('ä½¿ç”¨ipä¸ºï¼šéšç§˜ip' )
     else:
-        print('Î´¿ªÆôÒşÃØIP')
+        print('æœªå¼€å¯éšç§˜IP')
 
     if adv == '':
-        print('Î´¿ªÆô¹ã¸æÍ¶·Å¹¦ÄÜ')
+        print('æœªå¼€å¯å¹¿å‘ŠæŠ•æ”¾åŠŸèƒ½')
     else:
-        print('¹ã¸æ: ' + adv)
+        print('å¹¿å‘Š: ' + adv)
 
 def help():
     print(
-          '»¶Ó­Ê¹ÓÃ MovieBot ¼§£¬ÒÔÏÂÊÇÄã¿ÉÒÔµ÷ÓÃµÄº¯Êı£º\n'
-          'get_an_ip() -------------------- ´ÓIP¿âÀïÃæËæ»ú»ñÈ¡Ò»¸ö¸ßÄäIP\n'
-          'short(url)  -------------------- Ëõ¶ÌÍøÖ·\n'
-          'validate_resource(url) --------- ¼ì²â°Ù¶ÈÔÆ×ÊÔ´¿É²»¿ÉÓÃ\n'
-          'get_online_resource(movie) ------- »ñÈ¡ÔÚÏß¿´×ÊÔ´\n'
-          'gain_link(movie) --------------- »ñÈ¡×ÊÔ´\n'
-          'start_wechat_bot() ------------- ¿ªÆôÎ¢ĞÅ·şÎñ\n'
-          'get_hot() ---------------------- »ñÈ¡ÈÈÃÅµçÓ°\n'
-          'beautiful_input(get_link) ------ ÃÀ»¯ get_link µÄÊä³ö\n'
-          'beautiful_input_for_hot_movie()- ÃÀ»¯ get_hot Êä³ö\n'
-          'state_config() ----------------- ´òÓ¡Ò×¶®µÄ config\n'
-          'help() ------------------------- ´òÓ¡°ïÖú\n'
-          '\nWARNING: ÔÚÊ¹ÓÃÉÏÊöº¯ÊıÇ°£¬ÇëÏÈ¶Ô³õÊ¼»¯¿é½øĞĞ¸³Öµ'
+          'æ¬¢è¿ä½¿ç”¨ MovieBot å§¬ï¼Œä»¥ä¸‹æ˜¯ä½ å¯ä»¥è°ƒç”¨çš„å‡½æ•°ï¼š\n'
+          'get_an_ip() -------------------- ä»IPåº“é‡Œé¢éšæœºè·å–ä¸€ä¸ªé«˜åŒ¿IP\n'
+          'short(url)  -------------------- ç¼©çŸ­ç½‘å€\n'
+          'validate_resource(url) --------- æ£€æµ‹ç™¾åº¦äº‘èµ„æºå¯ä¸å¯ç”¨\n'
+          'get_online_resource(movie) ------- è·å–åœ¨çº¿çœ‹èµ„æº\n'
+          'gain_link(movie) --------------- è·å–èµ„æº\n'
+          'start_wechat_bot() ------------- å¼€å¯å¾®ä¿¡æœåŠ¡\n'
+          'get_hot() ---------------------- è·å–çƒ­é—¨ç”µå½±\n'
+          'beautiful_input(get_link) ------ ç¾åŒ– get_link çš„è¾“å‡º\n'
+          'beautiful_input_for_hot_movie()- ç¾åŒ– get_hot è¾“å‡º\n'
+          'state_config() ----------------- æ‰“å°æ˜“æ‡‚çš„ config\n'
+          'help() ------------------------- æ‰“å°å¸®åŠ©\n'
+          '\nWARNING: åœ¨ä½¿ç”¨ä¸Šè¿°å‡½æ•°å‰ï¼Œè¯·å…ˆå¯¹åˆå§‹åŒ–å—è¿›è¡Œèµ‹å€¼'
     )
-
