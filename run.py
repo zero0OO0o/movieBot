@@ -3,8 +3,6 @@
 
 '''
 
-TODO : 增强匿名IP库
-
 THE WECHAT FUNCTION IN UNDER CONSTRUCTION, USE IT CAREFULLY !
 
 power by Wyatt
@@ -22,5 +20,4 @@ import movieBot as mb
 
 
 #########   功能区     #########
-mb.state_config()
 mb.start_wechat_bot()

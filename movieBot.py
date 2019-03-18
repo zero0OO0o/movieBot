@@ -1,9 +1,7 @@
 ﻿#encoding:utf-8
 
-
 '''
-
-TODO : 增强匿名IP库
+TODO : 智能搜索
 
 THE WECHAT FUNCTION IN UNDER CONSTRUCTION, USE IT CAREFULLY !
 
@@ -37,7 +35,6 @@ from lxml import etree
 import itchat
 import os
 from lxml.html import fromstring
-import socket
 import json
 
 
@@ -49,21 +46,31 @@ if use_secrete_ip:
     try:
         ipLib = []
         url = 'https://www.xicidaili.com/nn/'
-        r = etree.HTML(rq.get(url,headers=header).content)
-        # //*[@id="ip_list"]/tbody/tr[2]/td[2]
-        # //*[@id="ip_list"]/tbody/tr[3]/td[2]
-        # //*[@id="ip_list"]/tbody/tr[101]/td[2]
-        for i in range(2,101):
-            ipLib.append(r.xpath('//*[@id="ip_list"]/tr['+ str(i) +']/td[2]/text()')[0])
+        r = etree.HTML(rq.get(url, headers=header).content)
+        # //*[@id="ip_list"]/tr[2]/td[2]
+        # //*[@id="ip_list"]/tr[3]/td[2]
+        # //*[@id="ip_list"]/tr[101]/td[2]
+        for i in range(2, 101):
+            ip = r.xpath('//*[@id="ip_list"]/tr[' + str(i) + ']/td[2]/text()')[0]
+            type = r.xpath('//*[@id="ip_list"]/tr[' + str(i) + ']/td[6]/text()')[0]
+            port = r.xpath('//*[@id="ip_list"]/tr[' + str(i) + ']/td[3]/text()')[0]
+            ipLib.append([ip,type,port])
     except Exception as e:
         print('匿名ip获取失败！：' + str(e))
         os._exit(0)
+
 else:
-    ipLib = [socket.gethostbyname(socket.gethostname())]
+    ipLib = []
+
 
 def get_an_ip():
     global ipLib
-    return random.choice(ipLib)
+
+    if ipLib == []:
+        return {}
+    choice = random.choice(ipLib)
+    return {choice[1]:choice[0] + ':' + choice[2]}
+
 
 def short(original_link):
     host = 'https://dwz.cn'
@@ -78,7 +85,8 @@ def short(original_link):
     headers = {'Content-Type': content_type, 'Token': token}
 
     # 发起请求
-    response = rq.post(url=url, data=json.dumps(bodys), headers=headers)
+
+    response = rq.post(url=url, data=json.dumps(bodys), headers=headers, proxies=get_an_ip())
 
     if json.loads(response.text)['Code'] == 0:
         return json.loads(response.text)['ShortUrl']
@@ -90,8 +98,7 @@ def validate_resource(test_url):
     global header,\
         error_dic
 
-    # 不要用proxies参数，不然会很慢
-    r = rq.get(test_url,headers=header).content
+    r = rq.get(test_url,headers=header, proxies=get_an_ip()).content
 
     tree = fromstring(r)
 
@@ -108,7 +115,7 @@ def get_online_resource(movie_name):
     global header
     global send_online_watch_address
 
-    r = rq.get('http://ifkdy.com/?q='+ movie_name,headers=header).content.decode()
+    r = rq.get('http://ifkdy.com/?q='+ movie_name,headers=header,proxies=get_an_ip()).content.decode()
     tree = etree.HTML(r)
 
     for i in range(1,send_online_watch_address):
@@ -128,7 +135,7 @@ def gain_link(movie_name):
         get_movie_number,\
         validate_resource_max
 
-    c = rq.get('https://www.fqsousou.com/s/' + movie_name + '.html',headers=header,proxies={'http':get_an_ip()}).content.decode()
+    c = rq.get('https://www.fqsousou.com/s/' + movie_name + '.html',headers=header, proxies=get_an_ip()).content.decode()
     tree_r = etree.HTML(c)
 
     r = []
@@ -153,7 +160,7 @@ def gain_link(movie_name):
     # 分析二级域名
     def ana_naive_link(naive_link):
 
-        c = rq.get(naive_link,headers=header,proxies={'http':get_an_ip()}).content
+        c = rq.get(naive_link,headers=header, proxies=get_an_ip()).content
         xpath_link = '/html/body/div[3]/div/div/div/div[1]/div[1]/div[3]/p/a[2]'
         xpath_type = '/html/body/div[3]/div/div/div/div[1]/div[1]/div[2]/dl/dt[2]/label/text()'
         xpath_size = '/html/body/div[3]/div/div/div/div[1]/div[1]/div[2]/dl/dt[3]/label/text()'
@@ -351,7 +358,7 @@ def get_hot():
         get_hot_number
 
     # 不要加 proxies，不然会很慢
-    c = rq.get('http://58921.com/boxoffice/live',headers=header).content.decode()
+    c = rq.get('http://58921.com/boxoffice/live',headers=header,proxies=get_an_ip()).content.decode()
     r = etree.HTML(c)
 
     for i in range(1,get_hot_number + 1):
@@ -404,7 +411,7 @@ def state_config():
     if use_secrete_ip:
         print('使用ip为：隐秘ip' )
     else:
-        print('使用ip为：本机ip ' + get_an_ip())
+        print('未开启隐秘IP')
 
     if adv == '':
         print('未开启广告投放功能')
@@ -423,7 +430,8 @@ def help():
           'get_hot() ---------------------- 获取热门电影\n'
           'beautiful_input(get_link) ------ 美化 get_link 的输出\n'
           'beautiful_input_for_hot_movie()- 美化 get_hot 输出\n'
-          'state_config() ----------------- 打印易懂的 config'
+          'state_config() ----------------- 打印易懂的 config\n'
+          'help() ------------------------- 打印帮助\n'
           '\nWARNING: 在使用上述函数前，请先对初始化块进行赋值'
     )
 
