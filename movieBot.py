@@ -27,7 +27,7 @@ get_hot_number =5 #获取热门电影的个数，如果为0，则不获取
 use_secrete_ip = 0 #是否用隐藏ip
 error_dic = ['百度网盘-链接不存在','关注公众号获取资源','获取资源加'] #百度网盘关键词黑名单
 send_online_watch_address = 5 # 发送在线观看链接的个数，0为不发送
-baidu_short_link_token = '**************' # https://dwz.cn/console/userinfo 申请百度短网址的token
+baidu_short_link_token = '9860706e562a94413cc57f7076da665f' # https://dwz.cn/console/userinfo 申请百度短网址的token
 #########   初始化结束     #########
 
 
