@@ -81,7 +81,7 @@ def short(original_link):
     url = host + path
     method = 'POST'
     content_type = 'application/json'
-    token = '9860706e562a94413cc57f7076da665f'
+    token = baidu_short_link_token
     bodys = {'url': original_link}
 
     # 配置headers

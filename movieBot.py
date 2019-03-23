@@ -15,12 +15,12 @@ mode_init = 1 #微信机器人初始状态，1表示开启，0则相反
 bot_name = 'Wyatt电影机器人beta'
 adv = 'Power By Wyatt\nAccuracy search based on Baidu Validate' #若不想加广告，赋 adv=''
 get_movie_number = 5  #获取资源数量
-validate_resource_max = 10 #验证资源链接的最大数量，若不想使用此功能，赋值为0
-get_hot_number =5 #获取热门电影的个数，如果为0，则不获取
-use_secrete_ip = 0 #是否用隐藏ip
+validate_resource_max = 0 #验证资源链接的最大数量，若不想使用此功能，赋值为0
+get_hot_number = 5 #获取热门电影的个数，如果为0，则不获取
+use_secrete_ip = 1 #是否用隐藏ip
 error_dic = ['百度网盘-链接不存在','关注公众号获取资源','获取资源加'] #百度网盘关键词黑名单
 send_online_watch_address = 5 # 发送在线观看链接的个数，0为不发送
-baidu_short_link_token = '' # https://dwz.cn/console/userinfo 申请百度短网址的token
+baidu_short_link_token = '' # https://dwz.cn/console/userinfo 申请百度短网址的token，测试：9860706e562a94413cc57f7076da665f
 #########   初始化结束     #########
 
 
@@ -71,17 +71,16 @@ def short(original_link):
     host = 'https://dwz.cn'
     path = '/admin/v2/create'
     url = host + path
-    method = 'POST'
     content_type = 'application/json'
-    token = '9860706e562a94413cc57f7076da665f'
+    token = baidu_short_link_token
     bodys = {'url': original_link}
-
     # 配置headers
     headers = {'Content-Type': content_type, 'Token': token}
-
     # 发起请求
-
-    response = rq.post(url=url, data=json.dumps(bodys), headers=headers, proxies=get_an_ip())
+    try:
+        response = rq.post(url=url, data=json.dumps(bodys), headers=headers, proxies=get_an_ip())
+    except Exception:
+        return original_link
 
     if json.loads(response.text)['Code'] == 0:
         return json.loads(response.text)['ShortUrl']
@@ -161,10 +160,7 @@ def gain_link(movie_name):
         xpath_size = '/html/body/div[3]/div/div/div/div[1]/div[1]/div[2]/dl/dt[3]/label/text()'
         c = etree.HTML(c)
 
-        try:
-            movie_link = short(c.xpath(xpath_link)[0].attrib.get('href'))
-        except BaseException:
-            movie_link = c.xpath(xpath_link)[0].attrib.get('href')
+        movie_link = short(c.xpath(xpath_link)[0].attrib.get('href'))
 
         movie_type = c.xpath(xpath_type)[0]
 
