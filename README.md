@@ -125,6 +125,8 @@ baidu_short_link_token = '*********************' # https://dwz.cn/console/userin
 
 ## 更新
 
+**V2.3**： 增加了一个没什么用的 GUI 版本，修改了一些 bug
+
 **V2**： 增加在线看功能，改变短网址API
 
 **V1.1**：修复一些致命bug，简化代码，exe版诞生

@@ -1,4 +1,4 @@
-#encoding:utf-8
+﻿#encoding:utf-8
 
 '''
 TODO : 智能搜索
@@ -12,12 +12,12 @@ Enjoy It !
 
 #########   初始化开始     #########
 mode_init = 1 #微信机器人初始状态，1表示开启，0则相反
-bot_name = 'Wyatt电影机器人beta'
-adv = 'Power By Wyatt\nAccuracy search based on Baidu Validate' #若不想加广告，赋 adv=''
+bot_name = 'MovieBot'
+adv = 'Power By Wyatt' #若不想加广告，赋 adv=''
 get_movie_number = 5  #获取资源数量
-validate_resource_max = 10 #验证资源链接的最大数量，若不想使用此功能，赋值为0
+validate_resource_max = 0 #验证资源链接的最大数量，若不想使用此功能，赋值为0
 get_hot_number = 5 #获取热门电影的个数，如果为0，则不获取
-use_secrete_ip = 1 #是否用隐藏ip
+use_secrete_ip = 0 #是否用隐藏ip
 error_dic = ['百度网盘-链接不存在','关注公众号获取资源','获取资源加'] #百度网盘关键词黑名单
 send_online_watch_address = 5 # 发送在线观看链接的个数，0为不发送
 baidu_short_link_token = '' # https://dwz.cn/console/userinfo 申请百度短网址的token，测试：9860706e562a94413cc57f7076da665f
@@ -27,11 +27,9 @@ baidu_short_link_token = '' # https://dwz.cn/console/userinfo 申请百度短网
 import requests as rq
 import random
 from lxml import etree
-import itchat
 import os
 from lxml.html import fromstring
-import json
-
+import itchat
 
 # constant
 header = {
@@ -68,24 +66,7 @@ def get_an_ip():
 
 
 def short(original_link):
-    host = 'https://dwz.cn'
-    path = '/admin/v2/create'
-    url = host + path
-    content_type = 'application/json'
-    token = baidu_short_link_token
-    bodys = {'url': original_link}
-    # 配置headers
-    headers = {'Content-Type': content_type, 'Token': token}
-    # 发起请求
-    try:
-        response = rq.post(url=url, data=json.dumps(bodys), headers=headers, proxies=get_an_ip())
-    except Exception:
-        return original_link
-
-    if json.loads(response.text)['Code'] == 0:
-        return json.loads(response.text)['ShortUrl']
-    else:
-        return original_link
+    return original_link
 
 def validate_resource(test_url):
 
@@ -232,7 +213,7 @@ def start_wechat_bot():
 
     #如果是在服务器运行，auto_login 加上参数 enableCmdQR=2
 
-    itchat.auto_login(hotReload=True)
+    itchat.auto_login()
 
     # initialize
     rcv = 'filehelper'
@@ -409,19 +390,3 @@ def state_config():
     else:
         print('广告: ' + adv)
 
-def help():
-    print(
-          '欢迎使用 MovieBot 姬，以下是你可以调用的函数：\n'
-          'get_an_ip() -------------------- 从IP库里面随机获取一个高匿IP\n'
-          'short(url)  -------------------- 缩短网址\n'
-          'validate_resource(url) --------- 检测百度云资源可不可用\n'
-          'get_online_resource(movie) ------- 获取在线看资源\n'
-          'gain_link(movie) --------------- 获取资源\n'
-          'start_wechat_bot() ------------- 开启微信服务\n'
-          'get_hot() ---------------------- 获取热门电影\n'
-          'beautiful_input(get_link) ------ 美化 get_link 的输出\n'
-          'beautiful_input_for_hot_movie()- 美化 get_hot 输出\n'
-          'state_config() ----------------- 打印易懂的 config\n'
-          'help() ------------------------- 打印帮助\n'
-          '\nWARNING: 在使用上述函数前，请先对初始化块进行赋值'
-    )

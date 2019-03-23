@@ -4,4 +4,4 @@ import movieBot
 
 
 movieBot.state_config()
-print(movieBot.gain_link('way of dragon'))
+print(movieBot.beautiful_input(movieBot.gain_link('驯龙高手')))
